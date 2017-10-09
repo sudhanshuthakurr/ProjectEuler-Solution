@@ -1,0 +1,106 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+std::string readName()
+
+       {
+string result;
+
+         while (true)
+
+         {
+           char c = cin.get();
+           if (!std::cin)
+
+             break;
+
+           if (c == '"')
+
+             continue;
+
+           if (c == ',')
+
+             break;
+
+           result += c;
+
+         }
+
+         return result;
+
+       }
+
+        
+
+       int main()
+
+       {
+         set<string> names;
+         while (true)
+
+         {    auto name = readName();
+
+           if (name.empty())
+
+             break;
+
+           names.insert(name);
+
+         }  unsigned int numNames;
+
+         cin >> numNames;
+
+         while (numNames--)
+
+         {
+           string name;
+           cin >> name;
+ names.insert(name);
+
+         }
+  std::map<std::string, unsigned int> sorted;
+
+         unsigned int pos = 1;
+
+         for (auto name : names)
+
+           sorted[name] = pos++;
+
+         unsigned int sum = 0;
+
+         for (auto name : sorted)
+
+         {
+
+           unsigned int value = 0;
+             for (auto c : name.first)
+
+             value += c - 'A' + 1;
+             sum += value * name.second;
+         }
+
+         cout << sum <<endl;
+         unsigned int queries;
+         cin >> queries;
+
+         while (queries--)
+
+         {string name;
+          cin >> name;
+          unsigned int value = 0;
+            for (auto c : name)
+
+             value += c - 'A' + 1;
+           value *= sorted[name];
+             cout << value << endl;
+
+         }
+  return 0;
+
+       }
+
